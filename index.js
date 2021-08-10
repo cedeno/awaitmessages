@@ -8,14 +8,12 @@ client.once('ready', () => {
 });
 
 client.on('messageCreate', async m => {
-	console.log(`got message "${m}"`);
 	let channel = m.channel;
-
-	// code from https://discord.js.org/#/docs/main/stable/class/TextChannel?scrollTo=awaitMessages
-	const filter = m => m.content.startsWith('!vote');
-	// Errors: ['time'] treats ending because of the time limit as an error
+	const filter = new_message => new_message.author.id == m.author.id && !new_message.author.bot;
 	let collected = await channel.awaitMessages({ filter, max: 1, time: 60000, errors: ['time'] });
-	console.log(collected.size);
+	let response = collected.first();
+	console.log(`got response ${response}`);
+	channel.send(`got your response ${response}`);
 });
 
 client.login(token);
