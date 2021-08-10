@@ -1,4 +1,5 @@
 const { Client, Intents } = require('discord.js');
+const { token } = require('./config.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
@@ -18,4 +19,4 @@ client.on('messageCreate', m => {
 	  .catch(collected => console.log(`After a minute, only ${collected.size} out of 4 voted.`));
 });
 
-client.login('');
+client.login(token);
