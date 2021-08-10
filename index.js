@@ -10,7 +10,7 @@ client.once('ready', () => {
 client.on('messageCreate', async m => {
 	if (m.content.startsWith("!delete") && !m.author.bot) {
 		let response = await getYesNo(m, "Are you sure? YES NO");
-		if (response.content == "YES") {
+		if (response) {
 			// delete stuff
 			await m.channel.send(`Starting deleting. Please wait...`);
 			await deleteEverything();
@@ -31,11 +31,13 @@ async function deleteEverything() {
 	await timeout(2000);
 }
 
+// sends question as a message, waits for a YES or NO response and turns it into a boolean response
+// returns true or false (boolean)
 async function getYesNo(message, question) {
 	let result_message = await message.channel.send(question);
 	const filter = new_message => new_message.author.id == message.author.id && !new_message.author.bot;
 	let collected = await message.channel.awaitMessages({ filter, max: 1, time: 60000, errors: ['time'] });
 	let response = collected.first();
-	return response;
+	return response.content == "YES";
 }
 client.login(token);
