@@ -7,16 +7,15 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-client.on('messageCreate', m => {
-	console.log(`got message ${m}`);
+client.on('messageCreate', async m => {
+	console.log(`got message "${m}"`);
 	let channel = m.channel;
 
 	// code from https://discord.js.org/#/docs/main/stable/class/TextChannel?scrollTo=awaitMessages
 	const filter = m => m.content.startsWith('!vote');
 	// Errors: ['time'] treats ending because of the time limit as an error
-	channel.awaitMessages({ filter, max: 1, time: 60000, errors: ['time'] })
-	  .then(collected => console.log(collected.size))
-	  .catch(collected => console.log(`catch condition: collected ${collected.size}`));
+	let collected = await channel.awaitMessages({ filter, max: 1, time: 60000, errors: ['time'] });
+	console.log(collected.size);
 });
 
 client.login(token);
