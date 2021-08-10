@@ -1,0 +1,14 @@
+{
+  "name": "awaitmessage",
+  "version": "1.0.0",
+  "description": "simple discord.js example for awaitMessages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.0.1"
+  }
+}
